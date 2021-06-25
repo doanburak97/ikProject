@@ -9,3 +9,5 @@
 <link rel="stylesheet" href="{{ asset('vendors/plugins/fontawesome-free/css/all.min.css') }}">
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('vendors/dist/css/adminlte.min.css') }}">
+<!-- Datatables.net -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">

@@ -8,12 +8,6 @@
 
     @include('includes.header')
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
-            <img src="{{ asset('vendors/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
-        </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
@@ -85,7 +79,15 @@
         </div>
         <!-- /.sidebar -->
     </aside>
-    @yield('content')
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="card-body">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+    </div>
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
         <div class="p-3">
@@ -103,6 +105,8 @@
 <script src="{{ asset('vendors/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('vendors/dist/js/adminlte.min.js') }}"></script>
+<!-- Datatables.net -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 </body>
 </html>
 
