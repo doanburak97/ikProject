@@ -43,7 +43,7 @@ class EmployeeController extends Controller
             'last_name' => 'required',
             'email' => 'nullable',
             'phone' => 'required',
-            'company' => 'required',
+            'company_id' => 'required',
         ]);
 
         Employee::create($request->all());
@@ -88,7 +88,7 @@ class EmployeeController extends Controller
             'last_name' => 'required',
             'email' => 'nullable',
             'phone' => 'required',
-            'company' => 'required',
+            'company_id' => 'required',
         ]);
         $employee->update($request->all());
 

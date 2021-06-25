@@ -58,8 +58,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Company:</strong>
-                    <input type="text" name="company" class="form-control" placeholder="{{ $employee->company }}"
-                           value="{{ $employee->company }}">
+                    <input type="text" name="company_id" class="form-control" placeholder="{{ $employee->company_id }}"
+                           value="{{ $employee->company_id }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
