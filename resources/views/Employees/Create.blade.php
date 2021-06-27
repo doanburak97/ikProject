@@ -7,7 +7,8 @@
                 <h2>Add New Employee</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('employees.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
+                <a class="btn btn-primary" href="{{ route('employees.index') }}" title="Go back"> <i
+                        class="fas fa-backward "></i> </a>
             </div>
         </div>
     </div>
@@ -22,7 +23,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('employees.store') }}" method="POST" >
+    <form action="{{ route('employees.store') }}" method="POST">
         @csrf
 
         <div class="row">
@@ -53,7 +54,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <!-- select -->
                 <div class="form-group">
-                    <label>Custom Select</label>
+                    <label>Company</label>
                     <select class="custom-select" name="company_id">
                         @foreach($companies as $company)
                             <option value="{{$company->id}}">{{$company->name}}</option>

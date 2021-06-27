@@ -18,8 +18,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::latest()->paginate(10);
 
-        return view('employees.index', compact('employees'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('employees.index', compact('employees'));
     }
 
     /**
@@ -30,13 +29,13 @@ class EmployeeController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('employees.create',['companies'=>$companies]);
+        return view('employees.create', ['companies' => $companies]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(EmployeeStoreRequest $request)
@@ -51,7 +50,7 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param \App\Models\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function show(Employee $employee)
@@ -62,19 +61,20 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param \App\Models\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function edit(Employee $employee)
     {
-        return view('employees.edit', compact('employee'));
+        $companies = Company::all();
+        return view('employees.edit', compact('employee', 'companies'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employee  $employee
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function update(EmployeeStoreRequest $request, Employee $employee)
@@ -89,7 +89,7 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param \App\Models\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function destroy(Employee $employee)

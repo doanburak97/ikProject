@@ -27,7 +27,7 @@ class CompanyStoreRequest extends FormRequest
             'name' => 'required',
             'address' => 'nullable',
             'phone' => 'nullable',
-            'email' => 'nullable',
+            'email' => 'nullable|email',
             'logo' => 'nullable',
             'website' => 'nullable',
         ];

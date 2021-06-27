@@ -7,7 +7,8 @@
                 <h2>Edit Employee</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('employees.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
+                <a class="btn btn-primary" href="{{ route('employees.index') }}" title="Go back"> <i
+                        class="fas fa-backward "></i> </a>
             </div>
         </div>
     </div>
@@ -31,7 +32,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>First Name:</strong>
-                    <input type="text" name="first_name" value="{{ $employee->first_name }}" class="form-control" placeholder="First Name">
+                    <input type="text" name="first_name" value="{{ $employee->first_name }}" class="form-control"
+                           placeholder="First Name">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -56,10 +58,15 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
+                <!-- select -->
                 <div class="form-group">
-                    <strong>Company:</strong>
-                    <input type="text" name="company_id" class="form-control" placeholder="{{ $employee->company_id }}"
-                           value="{{ $employee->company_id }}">
+                    <label>Company</label>
+                    <select class="custom-select" name="company_id">
+                        @foreach($companies as $company)
+                            <option @if($employee->company->name === $company->name) selected
+                                    @endif value="{{$company->id}}">{{$company->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

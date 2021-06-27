@@ -1,9 +1,5 @@
 @extends('layouts.layout')
 
-@section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-@endsection
-
 @section('content')
 
     @if ($message = Session::get('success'))
@@ -20,63 +16,67 @@
         </div>
     </div>
     <hr>
-    <table class="display" id="employeeTbl">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Company_id</th>
-            <th width="75px">Action</th>
-        </thead>
-        <tbody>
-        @foreach ($employees as $employee)
-            <tr>
-                <td>{{ $employee->id }}</td>
-                <td>{{ $employee->first_name }}</td>
-                <td>{{ $employee->last_name }}</td>
-                <td>{{ $employee->email }}</td>
-                <td>{{ $employee->phone }}</td>
-                <td>{{ $employee->company_id }}</td>
-                <td>
-                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
 
-                        <a href="{{ route('employees.show', $employee->id) }}" title="show">
-                            <i class="fas fa-eye text-success  fa-lg"></i>
-                        </a>
+    <div class="card-body">
+        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6"></div>
+                <div class="col-sm-12 col-md-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                           aria-describedby="example2_info">
+                        <thead>
+                        <tr role="row">
+                            <th>Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Company</th>
+                            <th width="105px">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($employees as $employee)
+                            <tr>
+                                <td>{{ $employee->id }}</td>
+                                <td>{{ $employee->first_name }}</td>
+                                <td>{{ $employee->last_name }}</td>
+                                <td>{{ $employee->email }}</td>
+                                <td>{{ $employee->phone }}</td>
+                                <td>{{ $employee->company->name }}</td>
+                                <td>
+                                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
 
-                        <a href="{{ route('employees.edit', $employee->id) }}">
-                            <i class="fas fa-edit  fa-lg"></i>
+                                        <a href="{{ route('employees.show', $employee->id) }}" title="show">
+                                            <i class="fas fa-eye text-success  fa-lg"></i>
+                                        </a>
 
-                        </a>
+                                        <a href="{{ route('employees.edit', $employee->id) }}">
+                                            <i class="fas fa-edit  fa-lg"></i>
 
-                        @csrf
-                        @method('DELETE')
+                                        </a>
 
-                        <button type="submit" title="delete" style="border: none; background-color:transparent;">
-                            <i class="fas fa-trash fa-lg text-danger"></i>
+                                        @csrf
+                                        @method('DELETE')
 
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach</tbody>
+                                        <button type="submit" title="delete" style="border: none; background-color:transparent;">
+                                            <i class="fas fa-trash fa-lg text-danger"></i>
 
-    </table>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach</tbody>
+                    </table>
+                    {{ $employees->links() }}
+                </div>
+            </div>
 
-    {!! $employees->links() !!}
+        </div>
+    </div>
+
 
 @endsection
-
-@push('scripts')
-    <script type="text/javascript" charset="utf8"
-            src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#employeeTbl').DataTable();
-        });
-    </script>
-@endpush

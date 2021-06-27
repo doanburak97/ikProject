@@ -17,8 +17,7 @@ class CompanyController extends Controller
     {
         $companies = Company::latest()->paginate(10);
 
-        return view('companies.index', compact('companies'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('companies.index', compact('companies'));
     }
 
     /**
