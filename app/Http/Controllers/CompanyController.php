@@ -8,6 +8,7 @@ use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class CompanyController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::latest()->paginate(10);
+        $companies = Company::first()->paginate(10);
 
         return view('companies.index', compact('companies'));
     }
@@ -87,7 +88,6 @@ class CompanyController extends Controller
      */
     public function update(CompanyStoreRequest $request, Company $company)
     {
-//        $company->update($request->all());
 
         $input = $request->all();
 
@@ -96,9 +96,25 @@ class CompanyController extends Controller
             $profileImage = date('YmdHis') . "." . $logo->getClientOriginalExtension();
             $logo->move($destinationPath, $profileImage);
             $input['logo'] = "$profileImage";
+            Storage::disk('local')->put('example.txt', 'Contents');
         }else{
             unset($input['logo']);
         }
+
+//        if ($request->hasFile('logo')) {
+//            $image      = $request->file('logo');
+//            $fileName   = time() . '.' . $image->getClientOriginalExtension();
+//
+//            $img = Image::make($image->getRealPath());
+//            $img->resize(120, 120, function ($constraint) {
+//                $constraint->aspectRatio();
+//            });
+//
+//            $img->stream(); // <-- Key point
+//
+//            //dd();
+//            Storage::disk('local')->put('images/1/smalls'.'/'.$fileName, $img, 'public');
+//        }
 
         $company->update($input);
 
