@@ -51,9 +51,14 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
+                <!-- select -->
                 <div class="form-group">
-                    <strong>Company:</strong>
-                    <input type="text" name="company_id" class="form-control" placeholder="Company">
+                    <label>Custom Select</label>
+                    <select class="custom-select" name="company_id">
+                        @foreach($companies as $company)
+                            <option value="{{$company->id}}">{{$company->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

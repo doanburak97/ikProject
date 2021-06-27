@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::latest()->paginate(5);
+        $employees = Employee::latest()->paginate(10);
 
         return view('employees.index', compact('employees'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -27,7 +28,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employees.create');
+        $companies = Company::all();
+        return view('employees.create',['companies'=>$companies]);
     }
 
     /**

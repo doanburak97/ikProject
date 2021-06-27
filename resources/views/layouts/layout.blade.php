@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    @include('includes.head')
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config('app.name')  }}</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{{ asset('vendors/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('vendors/dist/css/adminlte.min.css') }}">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    @yield('css')
 </head>
+
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
     @include('includes.header')
+
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
         <!-- Sidebar -->
@@ -21,20 +37,6 @@
                     <a href="#" class="d-block">Admin</a>
                 </div>
             </div>
-
-            <!-- SidebarSearch Form -->
-{{--            <div class="form-inline">--}}
-{{--                <div class="input-group" data-widget="sidebar-search">--}}
-{{--                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"--}}
-{{--                           aria-label="Search">--}}
-{{--                    <div class="input-group-append">--}}
-{{--                        <button class="btn btn-sidebar">--}}
-{{--                            <i class="fas fa-search fa-fw"></i>--}}
-{{--                        </button>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -42,13 +44,6 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item menu-open">
-{{--                        <a href="#" class="nav-link active">--}}
-{{--                            <i class="nav-icon fas fa-tachometer-alt"></i>--}}
-{{--                            <p>--}}
-{{--                                Starter Pages--}}
-{{--                                <i class="right fas fa-angle-left"></i>--}}
-{{--                            </p>--}}
-{{--                        </a>--}}
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="\companies" class="nav-link">
@@ -64,24 +59,15 @@
                             </li>
                         </ul>
                     </li>
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="#" class="nav-link">--}}
-{{--                            <i class="nav-icon fas fa-th"></i>--}}
-{{--                            <p>--}}
-{{--                                Simple Link--}}
-{{--                                <span class="right badge badge-danger">New</span>--}}
-{{--                            </p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->
     </aside>
-    <div class="content-wrapper">
+    <div class="content-wrapper p-sm-4">
         <div class="content">
-            <div class="card-body">
+            <div class="card-body bg-white">
                 <div class="container-fluid">
                     @yield('content')
                 </div>
@@ -98,15 +84,18 @@
     @include('includes.footer')
 
 </div>
+
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="{{ asset('vendors/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('vendors/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('vendors/plugins/bootstrap/js/bootstrap.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('vendors/dist/js/adminlte.min.js') }}"></script>
-<!-- Datatables.net -->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+@stack('scripts')
 </body>
 </html>
 

@@ -14,7 +14,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::latest()->paginate(5);
+        $companies = Company::latest()->paginate(10);
 
         return view('companies.index', compact('companies'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -46,6 +46,11 @@ class CompanyController extends Controller
             'logo' => 'nullable',
             'website' => 'nullable',
         ]);
+
+        if ($request->hasfile('logo')) {
+            $file = $request->file('logo');
+            $extension = $file->getClientOriginalExtension();
+        }
 
         Company::create($request->all());
 

@@ -52,11 +52,23 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Logo:</strong>
-                    <input type="text" name="logo" class="form-control" placeholder="Logo">
+                <strong>Logo:</strong>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="logo">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                    </div>
                 </div>
             </div>
+{{--            <div class="col-xs-12 col-sm-12 col-md-12">--}}
+{{--                <div class="form-group">--}}
+{{--                    <strong>Logo:</strong>--}}
+{{--                    <input type="text" name="logo" class="form-control" placeholder="Logo">--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Website:</strong>

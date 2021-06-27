@@ -19,5 +19,9 @@
         "postcss": "^8.2.1",
         "postcss-import": "^12.0.1",
         "tailwindcss": "^2.0.2"
+    },
+    "dependencies": {
+        "datatables.net": "^1.10.25",
+        "datatables.net-dt": "^1.1.0"
     }
 }
