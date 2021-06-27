@@ -27,7 +27,7 @@
                 <div class="col-sm-12">
                     <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
                            aria-describedby="example2_info">
-                        <thead>
+                        <thead class="bg-gray-dark">
                         <tr role="row">
                             <th>Id</th>
                             <th>First Name</th>
@@ -35,7 +35,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Company</th>
-                            <th width="105px">Action</th>
+                            <th width="115px">Action</th>
                         </tr>
                         </thead>
                         <tbody>

@@ -28,7 +28,7 @@
                 <div class="col-sm-12">
                     <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
                            aria-describedby="example2_info">
-                        <thead>
+                        <thead class="bg-gray-dark">
                         <tr role="row">
                             <th>Id</th>
                             <th>Name</th>
@@ -37,7 +37,7 @@
                             <th>Email</th>
                             <th>Logo</th>
                             <th>Website</th>
-                            <th width="105px">Action</th>
+                            <th width="115px">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,7 +49,7 @@
                                 <td>{{ $company->phone }}</td>
                                 <td>{{ $company->email }}</td>
                                 {{--                    <td>{{ $company->logo }}</td>--}}
-                                <td><img src="{{ asset('storage/app/public/' . $company->logo) }}" alt="Image"></td>
+                                <td><img src="/images/{{ $company->logo }}" width="100px"; height="100px"></td>
                                 <td>{{ $company->website }}</td>
                                 <td>
                                     <form action="{{ route('companies.destroy', $company->id) }}" method="POST">

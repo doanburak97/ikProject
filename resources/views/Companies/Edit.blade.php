@@ -23,7 +23,7 @@
         </div>
     @endif
 
-    <form action="{{ route('companies.update', $company->id) }}" method="POST">
+    <form action="{{ route('companies.update', $company->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -58,8 +58,9 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Logo:</strong>
-                    <input type="text" name="logo" class="form-control" placeholder="{{ $company->logo }}"
-                           value="{{ $company->logo }}">
+                    <input type="file" name="logo" class="form-control" placeholder="Logo">
+                    <br>
+                    <img src="/images/{{ $company->logo }}" width="200px">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

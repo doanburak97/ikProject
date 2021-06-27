@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
     @yield('css')
 </head>
 
@@ -35,7 +36,7 @@
                          alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Admin</a>
+                    <a class="d-block">Admin</a>
                 </div>
             </div>
             <!-- Sidebar Menu -->
@@ -45,17 +46,13 @@
                     <li class="nav-item">
                         <a href="\companies" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>
-                            <p>
-                                Company Table
-                            </p>
+                            <p>Company Table</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="\employees" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>
-                            <p>
-                                Employee Table
-                            </p>
+                            <p>Employee Table</p>
                         </a>
                     </li>
                 </ul>
