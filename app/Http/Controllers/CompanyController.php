@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyStoreRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
 
@@ -36,22 +37,8 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyStoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'address' => 'nullable',
-            'phone' => 'nullable',
-            'email' => 'nullable',
-            'logo' => 'nullable',
-            'website' => 'nullable',
-        ]);
-
-        if ($request->hasfile('logo')) {
-            $file = $request->file('logo');
-            $extension = $file->getClientOriginalExtension();
-        }
-
         Company::create($request->all());
 
         return redirect()->route('companies.index')
@@ -87,16 +74,8 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(CompanyStoreRequest $request, Company $company)
     {
-        $request->validate([
-            'name' => 'required',
-            'address' => 'nullable',
-            'phone' => 'nullable',
-            'email' => 'nullable',
-            'logo' => 'nullable',
-            'website' => 'nullable',
-        ]);
         $company->update($request->all());
 
         return redirect()->route('companies.index')

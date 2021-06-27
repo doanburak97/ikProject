@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{{ asset('vendors/dist/css/adminlte.min.css') }}">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
     @yield('css')
 </head>
 
@@ -41,23 +42,21 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-                    <li class="nav-item menu-open">
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="\companies" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Companies</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="\employees" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Employees</p>
-                                </a>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <a href="\companies" class="nav-link">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                Company Table
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="\employees" class="nav-link">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                Employee Table
+                            </p>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -94,8 +93,13 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('vendors/dist/js/adminlte.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
 @stack('scripts')
+
 </body>
 </html>
 

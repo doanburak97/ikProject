@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeStoreRequest;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -38,15 +39,8 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeStoreRequest $request)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'nullable',
-            'phone' => 'required',
-            'company_id' => 'required',
-        ]);
 
         Employee::create($request->all());
 
@@ -83,15 +77,9 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(EmployeeStoreRequest $request, Employee $employee)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'nullable',
-            'phone' => 'required',
-            'company_id' => 'required',
-        ]);
+
         $employee->update($request->all());
 
         return redirect()->route('employees.index')

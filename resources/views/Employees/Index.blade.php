@@ -29,7 +29,7 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Company_id</th>
-            <th width="150px">Action</th>
+            <th width="75px">Action</th>
         </thead>
         <tbody>
         @foreach ($employees as $employee)

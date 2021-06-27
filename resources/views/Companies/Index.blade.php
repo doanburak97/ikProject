@@ -31,7 +31,7 @@
                 <th>Email</th>
                 <th>Logo</th>
                 <th>Website</th>
-                <th width="150px">Action</th>
+                <th width="75px">Action</th>
             </tr>
         </thead>
         <tbody>
