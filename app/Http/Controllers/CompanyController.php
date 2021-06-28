@@ -6,6 +6,7 @@ use App\Http\Requests\CompanyStoreRequest;
 use App\Models\Company;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -18,9 +19,16 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::first()->paginate(10);
 
-        return view('companies.index', compact('companies'));
+        $companies = Company::count();
+
+        if ($companies == null) {
+            return redirect()->route('companies.create');
+        } else {
+            $companies = Company::first()->paginate(10);
+            return view('companies.index', compact('companies'));
+        }
+
     }
 
     /**
@@ -36,7 +44,7 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CompanyStoreRequest $request)
@@ -44,11 +52,13 @@ class CompanyController extends Controller
 
         $input = $request->all();
 
-        if ($logo = $request->file('logo')){
+        if ($logo = $request->file('logo')) {
             $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . $logo->getClientOriginalExtension();
             $logo->move($destinationPath, $profileImage);
             $input['logo'] = "$profileImage";
+
+            Storage::disk('public')->put($input['logo'], 'Contents');
         }
 
         Company::create($input);
@@ -60,7 +70,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param \App\Models\Company $company
      * @return \Illuminate\Http\Response
      */
     public function show(Company $company)
@@ -71,7 +81,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param \App\Models\Company $company
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
@@ -82,8 +92,8 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Company $company
      * @return \Illuminate\Http\Response
      */
     public function update(CompanyStoreRequest $request, Company $company)
@@ -91,30 +101,16 @@ class CompanyController extends Controller
 
         $input = $request->all();
 
-        if ($logo = $request->file('logo')){
+        if ($logo = $request->file('logo')) {
             $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . $logo->getClientOriginalExtension();
             $logo->move($destinationPath, $profileImage);
             $input['logo'] = "$profileImage";
-            Storage::disk('local')->put('example.txt', 'Contents');
-        }else{
+
+            Storage::disk('public')->put($input['logo'], 'Contents');
+        } else {
             unset($input['logo']);
         }
-
-//        if ($request->hasFile('logo')) {
-//            $image      = $request->file('logo');
-//            $fileName   = time() . '.' . $image->getClientOriginalExtension();
-//
-//            $img = Image::make($image->getRealPath());
-//            $img->resize(120, 120, function ($constraint) {
-//                $constraint->aspectRatio();
-//            });
-//
-//            $img->stream(); // <-- Key point
-//
-//            //dd();
-//            Storage::disk('local')->put('images/1/smalls'.'/'.$fileName, $img, 'public');
-//        }
 
         $company->update($input);
 
@@ -125,7 +121,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param \App\Models\Company $company
      * @return \Illuminate\Http\Response
      */
     public function destroy(Company $company)

@@ -6,6 +6,7 @@ use App\Http\Requests\EmployeeStoreRequest;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class EmployeeController extends Controller
 {
@@ -16,9 +17,14 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::first()->paginate(10);
+        $employees = Employee::count();
 
-        return view('employees.index', compact('employees'));
+        if ($employees==null){
+            return redirect()->route('employees.create');
+        }else{
+            $employees = Employee::first()->paginate(10);
+            return view('employees.index', compact('employees'));
+        }
     }
 
     /**
