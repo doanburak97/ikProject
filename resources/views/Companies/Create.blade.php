@@ -23,45 +23,45 @@
         </div>
     @endif
 
-    <form action="{{ route('companies.store') }}" method="POST" >
+    <form action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Name">
+                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="Name">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Address:</strong>
-                    <textarea class="form-control" style="height:50px" name="address"
+                    <textarea class="form-control" style="height:50px" name="address" value="{{ old('address') }}"
                               placeholder="Address"></textarea>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Phone:</strong>
-                    <input type="text" name="phone" class="form-control" placeholder="Phone">
+                    <input type="tel" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Phone">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>E-mail:</strong>
-                    <input type="text" name="email" class="form-control" placeholder="E-mail">
+                    <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="E-mail">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Logo:</strong>
-                    <input type="file" name="logo" class="form-control" placeholder="Logo">
+                    <input type="file" name="logo" class="form-control" value="{{ old('logo') }}" placeholder="Logo">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Website:</strong>
-                    <input type="text" name="website" class="form-control" placeholder="Website">
+                    <input type="url" name="website" class="form-control" value="{{ old('website') }}" placeholder="Website">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
