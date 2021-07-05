@@ -26,10 +26,10 @@ class CompanyStoreRequest extends FormRequest
         return [
             'name' => 'required',
             'address' => 'nullable',
-            'phone' => 'nullable',
+            'phone' => 'nullable|min:11|numeric',
             'email' => 'nullable|email|unique:users',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'website' => 'nullable',
+            'website' => 'nullable|url',
         ];
     }
 }

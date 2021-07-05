@@ -7,21 +7,22 @@
                 <h2>Add New Company</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('companies.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
+                <a class="btn btn-primary" href="{{ route('companies.index') }}" title="Go back"> <i
+                        class="fas fa-backward "></i> </a>
             </div>
         </div>
     </div>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    {{--    @if ($errors->any())--}}
+    {{--        <div class="alert alert-danger">--}}
+    {{--            <strong>Whoops!</strong> There were some problems with your input.<br><br>--}}
+    {{--            <ul>--}}
+    {{--                @foreach ($errors->all() as $error)--}}
+    {{--                    <li>{{ $error }}</li>--}}
+    {{--                @endforeach--}}
+    {{--            </ul>--}}
+    {{--        </div>--}}
+    {{--    @endif--}}
 
     <form action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -30,26 +31,58 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="Name">
+                    <input type="text" name="name" value="{{ old('name') }}" class=" form-control
+                           @if($errors->has('name')) is-invalid @endif" placeholder="Name">
+
+                    <!-- Error -->
+                    @if($errors->has('name'))
+
+                        <div class="small text-danger">
+                            {{ $errors->first('name') }}
+                        </div>
+
+                    @endif
+
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Address:</strong>
-                    <textarea class="form-control" style="height:50px" name="address" value="{{ old('address') }}"
-                              placeholder="Address"></textarea>
+                    <textarea class="form-control" style="height:50px" name="address"
+                              placeholder="Address">{{ old('address') }}</textarea>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Phone:</strong>
-                    <input type="tel" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Phone">
+                    <input name="phone" class="form-control @if($errors->has('phone')) is-invalid @endif "
+                           value="{{ old('phone') }}" placeholder="Phone">
+
+                    <!-- Error -->
+                    @if($errors->has('phone'))
+
+                        <div class="small text-danger">
+                            {{ $errors->first('phone') }}
+                        </div>
+
+                    @endif
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>E-mail:</strong>
-                    <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="E-mail">
+                    <input name="email" value="{{ old('email') }}"
+                           class="form-control @if($errors->has('email')) is-invalid @endif "
+                           placeholder="E-mail">
+
+                    <!-- Error -->
+                    @if($errors->has('email'))
+
+                        <div class="small text-danger">
+                            {{ $errors->first('email') }}
+                        </div>
+
+                    @endif
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -61,7 +94,18 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Website:</strong>
-                    <input type="url" name="website" class="form-control" value="{{ old('website') }}" placeholder="Website">
+                    <input name="website" class=" form-control @if($errors->has('website')) is-invalid @endif"
+                           value="{{ old('website') }}"
+                           placeholder="Website">
+
+                    <!-- Error -->
+                    @if($errors->has('website'))
+
+                        <div class="small text-danger">
+                            {{ $errors->first('website') }}
+                        </div>
+
+                    @endif
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

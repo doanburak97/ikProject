@@ -19,7 +19,6 @@ class CompanyController extends Controller
      */
     public function index()
     {
-
         $companies = Company::count();
 
         if ($companies == null) {
@@ -38,7 +37,6 @@ class CompanyController extends Controller
      */
     public function create()
     {
-
         return view('companies.create');
     }
 

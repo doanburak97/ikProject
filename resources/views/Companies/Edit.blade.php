@@ -12,16 +12,16 @@
         </div>
     </div>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+{{--    @if ($errors->any())--}}
+{{--        <div class="alert alert-danger">--}}
+{{--            <strong>Whoops!</strong> There were some problems with your input.<br><br>--}}
+{{--            <ul>--}}
+{{--                @foreach ($errors->all() as $error)--}}
+{{--                    <li>{{ $error }}</li>--}}
+{{--                @endforeach--}}
+{{--            </ul>--}}
+{{--        </div>--}}
+{{--    @endif--}}
 
     <form action="{{ route('companies.update', $company->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -31,7 +31,17 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" name="name" value="{{ $company->name }}" class="form-control" placeholder="Name">
+                    <input type="text" name="name" value="{{ $company->name }}" class=" form-control
+                           @if($errors->has('name')) is-invalid @endif" placeholder="Name">
+
+                    <!-- Error -->
+                    @if($errors->has('name'))
+
+                        <div class="small text-danger">
+                            {{ $errors->first('name') }}
+                        </div>
+
+                    @endif
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -44,15 +54,35 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Phone:</strong>
-                    <input type="text" name="phone" class="form-control" placeholder="{{ $company->phone }}"
+                    <input type="text" name="phone" class=" form-control @if($errors->has('phone')) is-invalid @endif"
+                           placeholder="{{ $company->phone }}"
                            value="{{ $company->phone }}">
+
+                    <!-- Error -->
+                    @if($errors->has('phone'))
+
+                        <div class="small text-danger">
+                            {{ $errors->first('phone') }}
+                        </div>
+
+                    @endif
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>E-mail:</strong>
-                    <input type="text" name="email" class="form-control" placeholder="{{ $company->email }}"
+                    <input type="text" name="email" class="form-control @if($errors->has('email')) is-invalid @endif "
+                           placeholder="{{ $company->email }}"
                            value="{{ $company->email }}">
+
+                    <!-- Error -->
+                    @if($errors->has('email'))
+
+                        <div class="small text-danger">
+                            {{ $errors->first('email') }}
+                        </div>
+
+                    @endif
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -66,8 +96,18 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Website:</strong>
-                    <input type="text" name="website" class="form-control" placeholder="{{ $company->website }}"
+                    <input type="text" name="website" class=" form-control @if($errors->has('website')) is-invalid @endif"
+                           placeholder="{{ $company->website }}"
                            value="{{ $company->website }}">
+
+                    <!-- Error -->
+                    @if($errors->has('website'))
+
+                        <div class="small text-danger">
+                            {{ $errors->first('website') }}
+                        </div>
+
+                    @endif
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -77,3 +117,5 @@
 
     </form>
 @endsection
+
+
