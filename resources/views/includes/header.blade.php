@@ -11,7 +11,14 @@
     <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
-            <button type="submit"><i class="fas fa-sign-out-alt"></i></button>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="btn btn-lg"
+                                 onclick="event.preventDefault();
+                                 this.closest('form').submit();">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </form>
         </li>
     </ul>
 </nav>

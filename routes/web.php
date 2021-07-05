@@ -8,7 +8,11 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::resource('companies', CompanyController::class);
-Route::resource('employees', EmployeeController::class);
+Route::middleware('auth')->group(function () {
+
+    Route::resource('companies', CompanyController::class);
+    Route::resource('employees', EmployeeController::class);
+
+});
 
 require __DIR__.'/auth.php';

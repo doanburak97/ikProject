@@ -71,7 +71,8 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{$companies->links()}}
+                        <div class="align-content-center">{{$companies->links()}}</div>
+
                     </div>
                 </div>
 
