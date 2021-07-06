@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyStoreRequest;
+use App\Mail\Contact;
 use App\Models\Company;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,9 +23,12 @@ class CompanyController extends Controller
     {
         $companies = Company::count();
 
-        if ($companies == null) {
+        if ($companies == null)
+        {
             return redirect()->route('companies.create');
-        } else {
+        }
+        else
+        {
             $companies = Company::first()->paginate(10);
             return view('companies.index', compact('companies'));
         }
@@ -51,7 +56,8 @@ class CompanyController extends Controller
 
         $input = $request->all();
 
-        if ($logo = $request->file('logo')) {
+        if ($logo = $request->file('logo'))
+        {
             $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . $logo->getClientOriginalExtension();
             $logo->move($destinationPath, $profileImage);
@@ -61,6 +67,8 @@ class CompanyController extends Controller
         }
 
         Company::create($input);
+
+        Mail::to($request->input('email'))->send(new Contact());
 
         return redirect()->route('companies.index')
             ->with('success', 'Company created successfully.');
@@ -107,7 +115,9 @@ class CompanyController extends Controller
             $input['logo'] = "$profileImage";
 
             Storage::disk('public')->put($input['logo'], 'Contents');
-        } else {
+        }
+        else
+        {
             unset($input['logo']);
         }
 

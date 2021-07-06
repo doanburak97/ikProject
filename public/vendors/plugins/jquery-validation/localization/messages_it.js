@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "Campo obbligatorio",
 	remote: "Controlla questo campo",
-	email: "Inserisci un indirizzo email valido",
+	email: "Inserisci un indirizzo emails valido",
 	url: "Inserisci un indirizzo web valido",
 	date: "Inserisci una data valida",
 	dateISO: "Inserisci una data valida (ISO)",

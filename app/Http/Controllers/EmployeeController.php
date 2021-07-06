@@ -19,9 +19,11 @@ class EmployeeController extends Controller
     {
         $employees = Employee::count();
 
-        if ($employees==null){
+        if ($employees==null)
+        {
             return redirect()->route('employees.create');
-        }else{
+        }else
+        {
             $employees = Employee::first()->paginate(10);
             return view('employees.index', compact('employees'));
         }

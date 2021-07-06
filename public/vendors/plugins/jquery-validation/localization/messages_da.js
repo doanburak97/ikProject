@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "Dette felt er påkrævet.",
 	remote: "Ret venligst dette felt",
-	email: "Indtast en gyldig email-adresse.",
+	email: "Indtast en gyldig emails-adresse.",
 	url: "Indtast en gyldig URL.",
 	date: "Indtast en gyldig dato.",
 	number: "Indtast et tal.",

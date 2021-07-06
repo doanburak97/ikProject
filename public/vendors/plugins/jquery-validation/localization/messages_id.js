@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "Kolom ini diperlukan.",
 	remote: "Harap benarkan kolom ini.",
-	email: "Silakan masukkan format email yang benar.",
+	email: "Silakan masukkan format emails yang benar.",
 	url: "Silakan masukkan format URL yang benar.",
 	date: "Silakan masukkan format tanggal yang benar.",
 	dateISO: "Silakan masukkan format tanggal(ISO) yang benar.",

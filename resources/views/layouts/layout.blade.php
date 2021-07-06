@@ -25,7 +25,7 @@
 
     @include('includes.header')
 
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar small sidebar-dark-primary elevation-4">
 
         <!-- Sidebar -->
         <div class="sidebar">
@@ -46,13 +46,13 @@
                     <li class="nav-item">
                         <a href="\companies" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>
-                            <p>Company Table</p>
+                            Company Table
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="\employees" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>
-                            <p>Employee Table</p>
+                            Employee Table
                         </a>
                     </li>
                 </ul>

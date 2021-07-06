@@ -110,7 +110,7 @@ CodeMirror.defineMode("mbox", function() {
         inSeparator: false,
         // Is in a mail header
         inHeader: false,
-        // If bracketed email is permitted. Only applicable when inHeader
+        // If bracketed emails is permitted. Only applicable when inHeader
         emailPermitted: false,
         // Name of current header
         header: null,

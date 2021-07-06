@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "To pole jest wymagane.",
 	remote: "Proszę o wypełnienie tego pola.",
-	email: "Proszę o podanie prawidłowego adresu email.",
+	email: "Proszę o podanie prawidłowego adresu emails.",
 	url: "Proszę o podanie prawidłowego URL.",
 	date: "Proszę o podanie prawidłowej daty.",
 	dateISO: "Proszę o podanie prawidłowej daty (ISO).",

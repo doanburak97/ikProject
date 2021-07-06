@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "To polje je obvezno.",
 	remote: "Prosimo popravite to polje.",
-	email: "Prosimo vnesite veljaven email naslov.",
+	email: "Prosimo vnesite veljaven emails naslov.",
 	url: "Prosimo vnesite veljaven URL naslov.",
 	date: "Prosimo vnesite veljaven datum.",
 	dateISO: "Prosimo vnesite veljaven ISO datum.",

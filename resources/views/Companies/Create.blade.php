@@ -4,13 +4,14 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Add New Company</h2>
+                <h3>Add New Company</h3>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('companies.index') }}" title="Go back"> <i
-                        class="fas fa-backward "></i> </a>
+                        class="fa fa-backward "></i> </a>
             </div>
         </div>
+        <div class="clearfix pt-2"></div>
     </div>
 
     {{--    @if ($errors->any())--}}

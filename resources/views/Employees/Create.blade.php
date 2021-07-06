@@ -11,6 +11,7 @@
                         class="fas fa-backward "></i> </a>
             </div>
         </div>
+        <div class="clearfix pt-2"></div>
     </div>
 
     {{--    @if ($errors->any())--}}

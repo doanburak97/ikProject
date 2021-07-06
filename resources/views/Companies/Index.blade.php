@@ -22,7 +22,8 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                        <table id="example2" class="table small  table-bordered table-hover dataTable dtr-inline"
+                               role="grid"
                                aria-describedby="example2_info">
                             <thead class="bg-gray-dark">
                             <tr role="row">
@@ -50,11 +51,11 @@
                                         <form action="{{ route('companies.destroy', $company->id) }}" method="POST">
 
                                             <a href="{{ route('companies.show', $company->id) }}" title="show">
-                                                <i class="fas fa-eye text-success  fa-lg"></i>
+                                                <i class="fas fa-eye text-success fa-lg"></i>
                                             </a>
 
-                                            <a href="{{ route('companies.edit', $company->id) }}">
-                                                <i class="fas fa-edit  fa-lg"></i>
+                                            <a href="{{ route('companies.edit', $company->id) }}" title="edit">
+                                                <i class="fas fa-edit fa-lg"></i>
                                             </a>
 
                                             @csrf
@@ -71,7 +72,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="align-content-center">{{$companies->links()}}</div>
+                        <div class="small pull-right">{{$companies->links()}}</div>
 
                     </div>
                 </div>

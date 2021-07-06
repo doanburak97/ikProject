@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                        <table id="example2" class="table small table-bordered table-hover dataTable dtr-inline" role="grid"
                                aria-describedby="example2_info">
                             <thead class="bg-gray-dark">
                             <tr role="row">
@@ -75,8 +75,4 @@
             </div>
         </div>
     </div>
-
-
-
-
 @endsection

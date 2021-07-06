@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "Hãy nhập.",
 	remote: "Hãy sửa cho đúng.",
-	email: "Hãy nhập email.",
+	email: "Hãy nhập emails.",
 	url: "Hãy nhập URL.",
 	date: "Hãy nhập ngày.",
 	dateISO: "Hãy nhập ngày (ISO).",
