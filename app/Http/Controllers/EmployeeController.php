@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Models\Company;
 use App\Models\Employee;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use function PHPUnit\Framework\isEmpty;
 
 class EmployeeController extends Controller
@@ -13,7 +18,7 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|RedirectResponse
      */
     public function index()
     {
@@ -22,17 +27,16 @@ class EmployeeController extends Controller
         if ($employees==null)
         {
             return redirect()->route('employees.create');
-        }else
-        {
-            $employees = Employee::first()->paginate(10);
-            return view('employees.index', compact('employees'));
         }
+
+        $employees = Employee::first()->paginate(10);
+        return view('employees.index', compact('employees'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -43,8 +47,8 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(EmployeeStoreRequest $request)
     {
@@ -58,8 +62,8 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function show(Employee $employee)
     {
@@ -69,8 +73,8 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function edit(Employee $employee)
     {
@@ -81,9 +85,9 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Employee $employee
+     * @return Response
      */
     public function update(EmployeeStoreRequest $request, Employee $employee)
     {
@@ -97,8 +101,8 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function destroy(Employee $employee)
     {

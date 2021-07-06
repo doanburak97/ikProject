@@ -28,6 +28,6 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.email')->subject('Company Verification Mail');
+        return $this->view('emails.email')->subject('Company Added Notification Mail');
     }
 }
