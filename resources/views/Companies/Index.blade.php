@@ -9,23 +9,49 @@
     @endif
 
     <div class="row">
-        <div class="col-lg-12 margin-tb">
+        <div class="card-header bg-white">
             <div class="fa-pull-left">
                 <a class="btn btn-success btn-sm" href="{{ route('companies.create') }}">Add Company</a>
             </div>
         </div>
         <div class="card-body">
-            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4 col-lg-12">
                 <div class="row">
                     <div class="col-sm-12 col-md-6"></div>
                     <div class="col-sm-12 col-md-6"></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 p-2">
+                        <form class="form-inline" method="GET">
+                            <div class="form-group mb-2">
+                                <label for="filter" class="col-sm-2 col-form-label">Filter</label>
+                                <input type="text" class="form-control" id="filter" name="filter"
+                                       placeholder="Search Name...">
+                            </div>
+                            <button type="submit" class="btn btn-default mb-2">Filter</button>
+                        </form>
                         <table id="example2" class="table small  table-bordered table-hover dataTable dtr-inline"
                                role="grid"
                                aria-describedby="example2_info">
-                            <thead class="bg-gray-dark">
+                            {{--                            <thead>--}}
+                            {{--                            <tr style="height: min-content;" role="row">--}}
+                            {{--                                <th></th>--}}
+                            {{--                                <th><input class="w-100 form-control filter-input" type="text"--}}
+                            {{--                                           placeholder="Name Search" data-column="1"></th>--}}
+                            {{--                                <th><input class="w-100 form-control filter-input" type="text"--}}
+                            {{--                                           placeholder="Address Search" data-column="2"></th>--}}
+                            {{--                                <th><input class="w-100 form-control filter-input" type="text"--}}
+                            {{--                                           placeholder="Phone Search" data-column="3"></th>--}}
+                            {{--                                <th><input class="w-100 form-control filter-input" type="text"--}}
+                            {{--                                           placeholder="Email Search" data-column="4"></th>--}}
+                            {{--                                <th></th>--}}
+                            {{--                                <th></th>--}}
+                            {{--                                <th>--}}
+                            {{--                                    <button class="btn btn-sm-secondary w-100"><i class="fas fa-search"></i></button>--}}
+                            {{--                                </th>--}}
+                            {{--                            </tr>--}}
+                            {{--                            </thead>--}}
+                            <thead class="bg bg-gray-dark">
                             <tr role="row">
                                 <th>Id</th>
                                 <th>Name</th>

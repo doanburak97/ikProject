@@ -14,16 +14,6 @@
         <div class="clearfix pt-2"></div>
     </div>
 
-    {{--    @if ($errors->any())--}}
-    {{--        <div class="alert alert-danger">--}}
-    {{--            <strong>Whoops!</strong> There were some problems with your input.<br><br>--}}
-    {{--            <ul>--}}
-    {{--                @foreach ($errors->all() as $error)--}}
-    {{--                    <li>{{ $error }}</li>--}}
-    {{--                @endforeach--}}
-    {{--            </ul>--}}
-    {{--        </div>--}}
-    {{--    @endif--}}
     <form action="{{ route('employees.store') }}" method="POST">
         @csrf
 

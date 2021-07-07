@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyStoreRequest;
 use App\Mail\Contact;
 use App\Models\Company;
-use Faker\Provider\Image;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -23,14 +23,15 @@ class CompanyController extends Controller
      */
     public function index()
     {
+
         $companies = Company::count();
 
-        if ($companies == null)
+        if (!$companies)
         {
             return redirect()->route('companies.create');
         }
 
-        $companies = Company::first()->paginate(10);
+        $companies = Company::paginate(10);
         return view('companies.index', compact('companies'));
 
 
@@ -55,17 +56,7 @@ class CompanyController extends Controller
     public function store(CompanyStoreRequest $request)
     {
 
-        $input = $request->all();
-
-        if ($logo = $request->file('logo'))
-        {
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $logo->getClientOriginalExtension();
-            $logo->move($destinationPath, $profileImage);
-            $input['logo'] = "$profileImage";
-
-            Storage::disk('public')->put($input['logo'], 'Contents');
-        }
+        $input = $this->uploadLogo($request);
 
         Company::create($input);
 
@@ -107,20 +98,8 @@ class CompanyController extends Controller
     public function update(CompanyStoreRequest $request, Company $company)
     {
 
-        $input = $request->all();
 
-        if ($logo = $request->file('logo')) {
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $logo->getClientOriginalExtension();
-            $logo->move($destinationPath, $profileImage);
-            $input['logo'] = "$profileImage";
-
-            Storage::disk('public')->put($input['logo'], 'Contents');
-        }
-        else
-        {
-            unset($input['logo']);
-        }
+        $input = $this->uploadLogo($request);
 
         $company->update($input);
 
@@ -142,4 +121,23 @@ class CompanyController extends Controller
             ->with('success', 'Company deleted successfully');
     }
 
+    /**
+     * @param CompanyStoreRequest $request
+
+     * @return array
+     */
+    private function uploadLogo(CompanyStoreRequest $request): array
+    {
+        $input=$request->all();
+        if ($logo = $request->file('logo')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $logo->getClientOriginalExtension();
+            $logo->move($destinationPath, $profileImage);
+            $input['logo'] = "$profileImage";
+
+            Storage::disk('public')->put($input['logo'], 'Contents');
+        }
+
+        return $input;
+    }
 }
