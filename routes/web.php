@@ -15,4 +15,6 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('/search', [CompanyController::class, 'search']);
+
 require __DIR__.'/auth.php';

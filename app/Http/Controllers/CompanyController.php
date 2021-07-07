@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-
+use function React\Promise\all;
 
 class CompanyController extends Controller
 {
@@ -139,5 +139,15 @@ class CompanyController extends Controller
         }
 
         return $input;
+    }
+
+    public function search(Request $req)
+    {
+        $search_text = $req->get('query');
+        $companies = DB::table('companies')
+            ->where('name', 'LIKE', '%'.$search_text.'%')
+            ->get();
+
+        return \view('Companies.Search', compact('companies'));
     }
 }
