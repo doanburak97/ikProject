@@ -143,10 +143,33 @@ class CompanyController extends Controller
 
     public function search(Request $req)
     {
-        $search_text = $req->get('query');
-        $companies = DB::table('companies')
-            ->where('name', 'LIKE', '%'.$search_text.'%')
-            ->get();
+        $search = $req->get('query');
+        $select = $req->input('columns');
+
+
+        if ($select == 'name')
+        {
+            $companies = DB::table('companies')
+                ->where('name', 'LIKE', '%'.$search.'%')
+                ->get();
+        }
+        elseif ($select == "address")
+        {
+            $companies = DB::table('companies')
+                ->where('address', 'LIKE', '%'.$search.'%')
+                ->get();
+        }
+        elseif ($select == "phone")
+        {
+            $companies = DB::table('companies')
+                ->where('phone', 'LIKE', '%'.$search.'%')
+                ->get();
+        }elseif ($select == "email")
+        {
+            $companies = DB::table('companies')
+                ->where('email', 'LIKE', '%'.$search.'%')
+                ->get();
+        }
 
         return \view('Companies.Search', compact('companies'));
     }

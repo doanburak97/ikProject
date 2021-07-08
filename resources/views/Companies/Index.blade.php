@@ -15,20 +15,33 @@
             </div>
         </div>
         <div class="card-body">
-            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4 col-lg-12">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6"></div>
-                    <div class="col-sm-12 col-md-6"></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 p-2">
+            <div class="col-lg-12">
+                <form action="{{ url('/search') }}" type="get">
+                    <select class="form-select col-lg-2" name="columns">
+                        <option value="name">Name</option>
+                        <option value="address">Address</option>
+                        <option value="phone">Phone</option>
+                        <option value="email">Email</option>
+                    </select>
+
+                    <input class="form-control form-control-sm col-lg-2" type="search" name="query"
+                           placeholder="Search...">
+
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+
+                <div class="dataTables_wrapper dt-bootstrap4 col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                    </div>
+                    <div class="row">
+
+
                         <table id="example2" class="table small  table-bordered table-hover dataTable dtr-inline"
                                role="grid"
                                aria-describedby="example2_info">
-                            <form action="{{ url('/search') }}" type="get">
-                                <input type="search" name="query" placeholder="name search">
-                                <button class="btn btn-sm-warning" type="submit">Search</button>
-                            </form>
+
                             <thead class="bg bg-gray-dark">
                             <tr role="row">
                                 <th>Id</th>
