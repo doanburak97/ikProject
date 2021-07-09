@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Models\Company;
 use App\Models\Employee;
+use App\Repositories\EmployeeRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,6 +16,13 @@ use function PHPUnit\Framework\isEmpty;
 
 class EmployeeController extends Controller
 {
+    private EmployeeRepository $employeeRepository;
+
+    public function __construct(EmployeeRepository $employeeRepository)
+    {
+        $this->employeeRepository = $employeeRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +30,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::count();
+        $employees = $this->employeeRepository->index();
 
         if ($employees==null)
         {
@@ -52,7 +60,8 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeStoreRequest $request)
     {
-        Employee::create($request->all());
+
+        $this->employeeRepository->store($request);
 
         return redirect()->route('employees.index')
             ->with('success', 'Employee created successfully.');
@@ -109,5 +118,17 @@ class EmployeeController extends Controller
 
         return redirect()->route('employees.index')
             ->with('success', 'Employee deleted successfully');
+    }
+
+    public function search_employee(Request $request)
+    {
+        $employees = Employee::query()
+            ->when($request->input('first_name'),fn($query,$value)=>$query->where('first_name','LIKE', '%'.$value.'%'))
+            ->when($request->input('last_name'),fn($query,$value)=>$query->where('last_name','LIKE', '%'.$value.'%'))
+            ->when($request->input('email'),fn($query,$value)=>$query->where('email','LIKE', '%'.$value.'%'))
+            ->when($request->input('phone'),fn($query,$value)=>$query->where('phone','LIKE', '%'.$value.'%'))
+            ->paginate(10);
+
+        return view('Employees.Index', compact('employees'));
     }
 }

@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyStoreRequest;
 use App\Mail\Contact;
 use App\Models\Company;
-use Illuminate\Contracts\View\View;
+use App\Repositories\CompanyRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use function React\Promise\all;
 
 class CompanyController extends Controller
 {
+    private CompanyRepository $companyRepository;
+
+    public function __construct(CompanyRepository $companyRepository)
+    {
+        $this->companyRepository = $companyRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +28,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-
-        $companies = Company::count();
+        $companies = $this->companyRepository->index();
 
         if (!$companies)
         {
@@ -33,8 +37,6 @@ class CompanyController extends Controller
 
         $companies = Company::paginate(10);
         return view('companies.index', compact('companies'));
-
-
     }
 
     /**
@@ -55,12 +57,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyStoreRequest $request)
     {
-
-        $input = $this->uploadLogo($request);
-
-        Company::create($input);
-
-        Mail::to($request->input('email'))->send(new Contact());
+        $this->companyRepository->store($request);
 
         return redirect()->route('companies.index')
             ->with('success', 'Company created successfully.');
@@ -97,11 +94,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyStoreRequest $request, Company $company)
     {
-
-
-        $input = $this->uploadLogo($request);
-
-        $company->update($input);
+        $this->companyRepository->update($request, $company);
 
         return redirect()->route('companies.index')
             ->with('success', 'Company updated successfully');
@@ -128,6 +121,7 @@ class CompanyController extends Controller
      */
     private function uploadLogo(CompanyStoreRequest $request): array
     {
+
         $input=$request->all();
         if ($logo = $request->file('logo')) {
             $destinationPath = 'images/';
@@ -141,36 +135,15 @@ class CompanyController extends Controller
         return $input;
     }
 
-    public function search(Request $req)
+    public function search_company(Request $request)
     {
-        $search = $req->get('query');
-        $select = $req->input('columns');
+        $companies = Company::query()
+            ->when($request->input('name'),fn($query,$value)=>$query->where('name', 'LIKE', '%'.$value.'%'))
+            ->when($request->input('address'),fn($query,$value)=>$query->where('address', 'LIKE', '%'.$value.'%'))
+            ->when($request->input('phone'),fn($query,$value)=>$query->where('phone', 'LIKE', '%'.$value.'%'))
+            ->when($request->input('email'),fn($query,$value)=>$query->where('email', 'LIKE', '%'.$value.'%'))
+            ->paginate(10);
 
-
-        if ($select == 'name')
-        {
-            $companies = DB::table('companies')
-                ->where('name', 'LIKE', '%'.$search.'%')
-                ->get();
-        }
-        elseif ($select == "address")
-        {
-            $companies = DB::table('companies')
-                ->where('address', 'LIKE', '%'.$search.'%')
-                ->get();
-        }
-        elseif ($select == "phone")
-        {
-            $companies = DB::table('companies')
-                ->where('phone', 'LIKE', '%'.$search.'%')
-                ->get();
-        }elseif ($select == "email")
-        {
-            $companies = DB::table('companies')
-                ->where('email', 'LIKE', '%'.$search.'%')
-                ->get();
-        }
-
-        return \view('Companies.Search', compact('companies'));
+        return view('Companies.Index', compact('companies'));
     }
 }

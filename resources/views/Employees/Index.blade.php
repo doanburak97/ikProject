@@ -24,6 +24,27 @@
                     <div class="col-sm-12">
                         <table id="example2" class="table small table-bordered table-hover dataTable dtr-inline" role="grid"
                                aria-describedby="example2_info">
+                            <thead>
+                            <form action="{{ url('/search_employee') }}" type="get">
+                                <thread>
+                                    <tr>
+                                        <th></th>
+                                        <th><input class="form-control form-control-sm w-auto" type="search"
+                                                   name="first_name" placeholder="Search F.Name"></th>
+                                        <th><input class="form-control form-control-sm w-auto" type="search"
+                                                   name="last_name" placeholder="Search L.Name"></th>
+                                        <th><input class="form-control form-control-sm w-auto" type="search"
+                                                   name="email" placeholder="Search Email"></th>
+                                        <th><input class="form-control form-control-sm w-auto" type="search"
+                                                   name="phone" placeholder="Search Phone"></th>
+                                        <th></th>
+                                        <th>
+                                            <button class="btn btn-primary" type="submit">Search</button>
+                                        </th>
+                                    </tr>
+                                </thread>
+                            </form>
+                            </thead>
                             <thead class="bg-gray-dark">
                             <tr role="row">
                                 <th>Id</th>

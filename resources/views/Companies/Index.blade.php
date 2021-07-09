@@ -10,38 +10,43 @@
 
     <div class="row">
         <div class="card-header bg-white">
-            <div class="fa-pull-left">
+            <div class="col-lg-12">
                 <a class="btn btn-success btn-sm" href="{{ route('companies.create') }}">Add Company</a>
             </div>
         </div>
         <div class="card-body">
             <div class="col-lg-12">
-                <form action="{{ url('/search') }}" type="get">
-                    <select class="form-select col-lg-2" name="columns">
-                        <option value="name">Name</option>
-                        <option value="address">Address</option>
-                        <option value="phone">Phone</option>
-                        <option value="email">Email</option>
-                    </select>
-
-                    <input class="form-control form-control-sm col-lg-2" type="search" name="query"
-                           placeholder="Search...">
-
-                    <button class="btn btn-primary" type="submit">Search</button>
-                </form>
-
                 <div class="dataTables_wrapper dt-bootstrap4 col-lg-12">
                     <div class="row">
                         <div class="col-sm-12 col-md-6"></div>
                         <div class="col-sm-12 col-md-6"></div>
                     </div>
                     <div class="row">
-
-
                         <table id="example2" class="table small  table-bordered table-hover dataTable dtr-inline"
                                role="grid"
                                aria-describedby="example2_info">
-
+                            <thead>
+                            <form action="{{ url('/search_company') }}" type="get">
+                                <thread>
+                                    <tr>
+                                        <th></th>
+                                        <th><input class="form-control form-control-sm w-auto" type="search"
+                                                   name="name" placeholder="Search Name"></th>
+                                        <th><input class="form-control form-control-sm w-auto" type="search"
+                                                   name="address" placeholder="Search Address"></th>
+                                        <th><input class="form-control form-control-sm w-auto" type="search"
+                                                   name="phone" placeholder="Search Phone"></th>
+                                        <th><input class="form-control form-control-sm w-auto" type="search"
+                                                   name="email" placeholder="Search Email"></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>
+                                            <button class="btn btn-primary" type="submit">Search</button>
+                                        </th>
+                                    </tr>
+                                </thread>
+                            </form>
+                            </thead>
                             <thead class="bg bg-gray-dark">
                             <tr role="row">
                                 <th>Id</th>
@@ -90,7 +95,6 @@
                             </tbody>
                         </table>
                         <div class="small pull-right">{{$companies->links()}}</div>
-
                     </div>
                 </div>
 
