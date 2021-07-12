@@ -47,12 +47,10 @@
                         <a href="\companies" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>
                             Company Table
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="\employees" class="nav-link">
-                            <i class="nav-icon fas fa-columns"></i>
-                            Employee Table
+                            <a href="\employees" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                Employee Table
+                            </a>
                         </a>
                     </li>
                 </ul>

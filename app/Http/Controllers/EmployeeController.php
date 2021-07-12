@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EmployeeExport;
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Models\Company;
 use App\Models\Employee;
@@ -11,8 +12,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use function PHPUnit\Framework\isEmpty;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 
 class EmployeeController extends Controller
 {
@@ -28,37 +30,35 @@ class EmployeeController extends Controller
      *
      * @return Application|Factory|View|RedirectResponse
      */
-    public function index()
+    public function index(Request $request): View|Factory|RedirectResponse|Application
     {
-        $employees = $this->employeeRepository->index();
+        $employees = $this->employeeRepository->index($request);
 
-        if ($employees==null)
+        if (!$employees)
         {
             return redirect()->route('employees.create');
         }
 
-        $employees = Employee::first()->paginate(10);
         return view('employees.index', compact('employees'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
-        $companies = Company::all();
-        return view('employees.create', ['companies' => $companies]);
+        return view('employees.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param EmployeeStoreRequest $request
+     * @return RedirectResponse
      */
-    public function store(EmployeeStoreRequest $request)
+    public function store(EmployeeStoreRequest $request): RedirectResponse
     {
 
         $this->employeeRepository->store($request);
@@ -71,9 +71,9 @@ class EmployeeController extends Controller
      * Display the specified resource.
      *
      * @param Employee $employee
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function show(Employee $employee)
+    public function show(Employee $employee): View|Factory|Application
     {
         return view('employees.show', compact('employee'));
     }
@@ -82,22 +82,21 @@ class EmployeeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Employee $employee
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function edit(Employee $employee)
+    public function edit(Employee $employee): View|Factory|Application
     {
-        $companies = Company::all();
         return view('employees.edit', compact('employee', 'companies'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EmployeeStoreRequest $request
      * @param Employee $employee
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(EmployeeStoreRequest $request, Employee $employee)
+    public function update(EmployeeStoreRequest $request, Employee $employee): RedirectResponse
     {
 
         $employee->update($request->all());
@@ -110,9 +109,9 @@ class EmployeeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Employee $employee
-     * @return Response
+     * @return RedirectResponse
      */
-    public function destroy(Employee $employee)
+    public function destroy(Employee $employee): RedirectResponse
     {
         $employee->delete();
 
@@ -120,7 +119,7 @@ class EmployeeController extends Controller
             ->with('success', 'Employee deleted successfully');
     }
 
-    public function search_employee(Request $request)
+    public function search_employee(Request $request): Factory|View|Application
     {
         $employees = Employee::query()
             ->when($request->input('first_name'),fn($query,$value)=>$query->where('first_name','LIKE', '%'.$value.'%'))
@@ -131,4 +130,16 @@ class EmployeeController extends Controller
 
         return view('Employees.Index', compact('employees'));
     }
+//
+//    /**
+//     */
+//    public function employeeExportIntoExcel(): BinaryFileResponse
+//    {
+//        return Excel::download(new EmployeeExport, 'employeelist.xlsx');
+//    }
+//
+//    public function employeeExportIntoCSV(): BinaryFileResponse
+//    {
+//        return Excel::download(new EmployeeExport, 'employeelist.csv');
+//    }
 }

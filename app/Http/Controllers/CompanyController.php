@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CompanyExport;
 use App\Http\Requests\CompanyStoreRequest;
-use App\Mail\Contact;
 use App\Models\Company;
 use App\Repositories\CompanyRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class CompanyController extends Controller
 {
@@ -24,27 +24,27 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @param Request $request
+     * @return View|RedirectResponse
      */
-    public function index()
+    public function index(Request $request): View|RedirectResponse
     {
-        $companies = $this->companyRepository->index();
+        $companies = $this->companyRepository->index($request);
 
         if (!$companies)
         {
             return redirect()->route('companies.create');
         }
 
-        $companies = Company::paginate(10);
         return view('companies.index', compact('companies'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('companies.create');
     }
@@ -55,7 +55,7 @@ class CompanyController extends Controller
      * @param CompanyStoreRequest $request
      * @return RedirectResponse
      */
-    public function store(CompanyStoreRequest $request)
+    public function store(CompanyStoreRequest $request): RedirectResponse
     {
         $this->companyRepository->store($request);
 
@@ -67,9 +67,10 @@ class CompanyController extends Controller
      * Display the specified resource.
      *
      * @param Company $company
-     * @return Response
+     *
+     * @return View
      */
-    public function show(Company $company)
+    public function show(Company $company): View
     {
         return view('companies.show', compact('company'));
     }
@@ -78,9 +79,9 @@ class CompanyController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Company $company
-     * @return Response
+     * @return View
      */
-    public function edit(Company $company)
+    public function edit(Company $company): View
     {
         return view('companies.edit', compact('company'));
     }
@@ -88,11 +89,11 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CompanyStoreRequest $request
      * @param Company $company
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(CompanyStoreRequest $request, Company $company)
+    public function update(CompanyStoreRequest $request, Company $company): RedirectResponse
     {
         $this->companyRepository->update($request, $company);
 
@@ -104,9 +105,9 @@ class CompanyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Company $company
-     * @return Response
+     * @return RedirectResponse
      */
-    public function destroy(Company $company)
+    public function destroy(Company $company): RedirectResponse
     {
         $company->delete();
 
@@ -114,36 +115,14 @@ class CompanyController extends Controller
             ->with('success', 'Company deleted successfully');
     }
 
-    /**
-     * @param CompanyStoreRequest $request
-
-     * @return array
-     */
-    private function uploadLogo(CompanyStoreRequest $request): array
+    public function companyExportIntoExcel(): BinaryFileResponse
     {
-
-        $input=$request->all();
-        if ($logo = $request->file('logo')) {
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $logo->getClientOriginalExtension();
-            $logo->move($destinationPath, $profileImage);
-            $input['logo'] = "$profileImage";
-
-            Storage::disk('public')->put($input['logo'], 'Contents');
-        }
-
-        return $input;
+        return Excel::download(new CompanyExport, 'company_list.xlsx');
     }
 
-    public function search_company(Request $request)
+    public function companyExportIntoCSV(): BinaryFileResponse
     {
-        $companies = Company::query()
-            ->when($request->input('name'),fn($query,$value)=>$query->where('name', 'LIKE', '%'.$value.'%'))
-            ->when($request->input('address'),fn($query,$value)=>$query->where('address', 'LIKE', '%'.$value.'%'))
-            ->when($request->input('phone'),fn($query,$value)=>$query->where('phone', 'LIKE', '%'.$value.'%'))
-            ->when($request->input('email'),fn($query,$value)=>$query->where('email', 'LIKE', '%'.$value.'%'))
-            ->paginate(10);
-
-        return view('Companies.Index', compact('companies'));
+        return Excel::download(new CompanyExport, 'company_list.csv');
     }
+
 }

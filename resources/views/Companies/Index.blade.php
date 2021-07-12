@@ -9,12 +9,45 @@
     @endif
 
     <div class="row">
-        <div class="card-header bg-white">
+        <div class="card-body">
             <div class="col-lg-12">
-                <a class="btn btn-success btn-sm" href="{{ route('companies.create') }}">Add Company</a>
+                <a class="btn btn-success btn-sm pull-left" href="{{ route('companies.create') }}">Add Company</a>
+                <a class="btn btn-success btn-sm pull-right" href="{{ url('/company_export_excel') }}">Export Excel</a>
+                <a class="btn btn-primary btn-sm pull-right" href="{{ url('/company_export_csv') }}">Export Csv</a>
             </div>
         </div>
         <div class="card-body">
+            <div class="col-lg-12">
+                <form action="{{ route('companies.index') }}" type="get">
+                    <table class="table">
+                        <th><input class="form-control form-control-sm" type="text"
+                                   name="name" placeholder="Search Name"></th>
+                        <th><input class="form-control form-control-sm" type="text"
+                                   name="address" placeholder="Search Address"></th>
+                        <th><input class="form-control form-control-sm" type="text"
+                                   name="phone" placeholder="Search Phone"></th>
+                        <th><input class="form-control form-control-sm" type="text"
+                                   name="email" placeholder="Search Email"></th>
+                        <th>
+                            <button class="btn btn-primary btn-sm" type="submit">Search</button>
+                        </th>
+                        </tr>
+                    </table>
+                </form>
+                {{--                <form action="{{ route('companies.index') }}" type="get">--}}
+                {{--                    <div class="input-group input-group pb-3">--}}
+                {{--                        <input class="form-control form-control-sm col-lg-2" type="text"--}}
+                {{--                               name="name" placeholder="Search Name">--}}
+                {{--                        <input class="form-control form-control-sm col-lg-2" type="text"--}}
+                {{--                               name="address" placeholder="Search Address">--}}
+                {{--                        <input class="form-control form-control-sm col-lg-2" type="text"--}}
+                {{--                               name="phone" placeholder="Search Phone">--}}
+                {{--                        <input class="form-control form-control-sm col-lg-2" type="text"--}}
+                {{--                               name="email" placeholder="Search Email">--}}
+                {{--                        <button class="btn btn-primary btn-sm" type="submit">Search</button>--}}
+                {{--                    </div>--}}
+                {{--                </form>--}}
+            </div>
             <div class="col-lg-12">
                 <div class="dataTables_wrapper dt-bootstrap4 col-lg-12">
                     <div class="row">
@@ -25,28 +58,6 @@
                         <table id="example2" class="table small  table-bordered table-hover dataTable dtr-inline"
                                role="grid"
                                aria-describedby="example2_info">
-                            <thead>
-                            <form action="{{ url('/search_company') }}" type="get">
-                                <thread>
-                                    <tr>
-                                        <th></th>
-                                        <th><input class="form-control form-control-sm w-auto" type="search"
-                                                   name="name" placeholder="Search Name"></th>
-                                        <th><input class="form-control form-control-sm w-auto" type="search"
-                                                   name="address" placeholder="Search Address"></th>
-                                        <th><input class="form-control form-control-sm w-auto" type="search"
-                                                   name="phone" placeholder="Search Phone"></th>
-                                        <th><input class="form-control form-control-sm w-auto" type="search"
-                                                   name="email" placeholder="Search Email"></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>
-                                            <button class="btn btn-primary" type="submit">Search</button>
-                                        </th>
-                                    </tr>
-                                </thread>
-                            </form>
-                            </thead>
                             <thead class="bg bg-gray-dark">
                             <tr role="row">
                                 <th>Id</th>
@@ -56,7 +67,7 @@
                                 <th>Email</th>
                                 <th width="100px">Logo</th>
                                 <th>Website</th>
-                                <th width="115px">Action</th>
+                                <th width="50px">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -69,25 +80,29 @@
                                     <td>{{ $company->email }}</td>
                                     <td><img src="/images/{{ $company->logo }}" width="75px" ; height="75px"></td>
                                     <td>{{ $company->website }}</td>
-                                    <td>
+                                    <td width="50px">
                                         <form action="{{ route('companies.destroy', $company->id) }}" method="POST">
+                                            <div class="col-lg-6">
+                                                <a class="col-lg-2" href="{{ route('companies.show', $company->id) }}"
+                                                   title="show">
+                                                    <i class="fas fa-info-circle fa-lg"></i>
+                                                </a>
 
-                                            <a href="{{ route('companies.show', $company->id) }}" title="show">
-                                                <i class="fas fa-eye text-success fa-lg"></i>
-                                            </a>
+                                                <a class="col-lg-2" href="{{ route('companies.edit', $company->id) }}"
+                                                   title="edit">
+                                                    <i class="fas fa-edit fa-lg text-success"></i>
+                                                </a>
 
-                                            <a href="{{ route('companies.edit', $company->id) }}" title="edit">
-                                                <i class="fas fa-edit fa-lg"></i>
-                                            </a>
+                                                @csrf
+                                                @method('DELETE')
 
-                                            @csrf
-                                            @method('DELETE')
+                                                <button class="col-lg-2" type="submit" title="delete"
+                                                        style="border: none; background-color:transparent;">
+                                                    <i class="fas fa-trash-alt fa-lg text-danger"></i>
 
-                                            <button type="submit" title="delete"
-                                                    style="border: none; background-color:transparent;">
-                                                <i class="fas fa-trash fa-lg text-danger"></i>
+                                                </button>
+                                            </div>
 
-                                            </button>
                                         </form>
                                     </td>
                                 </tr>

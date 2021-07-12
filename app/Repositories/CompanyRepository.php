@@ -16,13 +16,18 @@ class CompanyRepository
     /**
      * @return mixed
      */
-    public function index()
+    public function index(Request $request): mixed
     {
-        return Company::count();
+        return Company::query()
+            ->when($request->input('name'),fn($query,$value)=>$query->where('name', 'LIKE', '%'.$value.'%'))
+            ->when($request->input('address'),fn($query,$value)=>$query->where('address', 'LIKE', '%'.$value.'%'))
+            ->when($request->input('phone'),fn($query,$value)=>$query->where('phone', 'LIKE', '%'.$value.'%'))
+            ->when($request->input('email'),fn($query,$value)=>$query->where('email', 'LIKE', '%'.$value.'%'))
+            ->paginate(10);
     }
 
     /**
-     * @param Request $request
+     * @param CompanyStoreRequest $request
      */
     public function store(CompanyStoreRequest $request)
     {
@@ -33,6 +38,10 @@ class CompanyRepository
         Mail::to($request->input('email'))->send(new Contact());
     }
 
+    /**
+     * @param CompanyStoreRequest $request
+     * @param Company $company
+     */
     public function update(CompanyStoreRequest $request, Company $company)
     {
         $input = $this->uploadLogo($request);
@@ -58,17 +67,5 @@ class CompanyRepository
         }
 
         return $input;
-    }
-
-    public function search_company(Request $request)
-    {
-        $companies = Company::query()
-            ->when($request->input('name'),fn($query,$value)=>$query->where('name', 'LIKE', '%'.$value.'%'))
-            ->when($request->input('address'),fn($query,$value)=>$query->where('address', 'LIKE', '%'.$value.'%'))
-            ->when($request->input('phone'),fn($query,$value)=>$query->where('phone', 'LIKE', '%'.$value.'%'))
-            ->when($request->input('email'),fn($query,$value)=>$query->where('email', 'LIKE', '%'.$value.'%'))
-            ->paginate(10);
-
-        return view('Companies.Index', compact('companies'));
     }
 }

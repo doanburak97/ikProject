@@ -15,7 +15,12 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('/search_company', [CompanyController::class, 'search_company']);
 Route::get('/search_employee', [EmployeeController::class, 'search_employee']);
+
+Route::get('/company_export_excel', [CompanyController::class, 'companyExportIntoExcel']);
+Route::get('/company_export_csv', [CompanyController::class, 'companyExportIntoCSV']);
+
+//Route::get('/employee_export_excel', [EmployeeController::class, 'employeeExportIntoExcel']);
+//Route::get('/employee_export_csv', [EmployeeController::class, 'employeeExportIntoCSV']);
 
 require __DIR__.'/auth.php';

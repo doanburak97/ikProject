@@ -13,7 +13,7 @@
         <li class="nav-item dropdown">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="btn btn-lg"
+                <button type="submit" class="btn btn-lg text-danger"
                                  onclick="event.preventDefault();
                                  this.closest('form').submit();">
                     <i class="fas fa-sign-out-alt"></i>
