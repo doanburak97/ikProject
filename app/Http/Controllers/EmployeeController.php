@@ -49,7 +49,10 @@ class EmployeeController extends Controller
      */
     public function create(): View|Factory|Application
     {
-        return view('employees.create');
+
+        return view('employees.create',[
+            'companies' => Company::all(),
+        ]);
     }
 
     /**
@@ -86,7 +89,11 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee): View|Factory|Application
     {
-        return view('employees.edit', compact('employee', 'companies'));
+
+        return view('employees.edit', [
+            'employee' => $employee,
+            'companies' => Company::all(),
+        ]);
     }
 
     /**
@@ -130,16 +137,14 @@ class EmployeeController extends Controller
 
         return view('Employees.Index', compact('employees'));
     }
-//
-//    /**
-//     */
-//    public function employeeExportIntoExcel(): BinaryFileResponse
-//    {
-//        return Excel::download(new EmployeeExport, 'employeelist.xlsx');
-//    }
-//
-//    public function employeeExportIntoCSV(): BinaryFileResponse
-//    {
-//        return Excel::download(new EmployeeExport, 'employeelist.csv');
-//    }
+
+    public function employeeExportIntoExcel(): BinaryFileResponse
+    {
+        return Excel::download(new EmployeeExport, 'employee_list.xlsx');
+    }
+
+    public function employeeExportIntoCSV(): BinaryFileResponse
+    {
+        return Excel::download(new EmployeeExport, 'employee_list.csv');
+    }
 }

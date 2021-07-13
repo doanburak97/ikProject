@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmployeeStoreRequest extends FormRequest
 {
@@ -23,10 +24,16 @@ class EmployeeStoreRequest extends FormRequest
      */
     public function rules()
     {
+        $employee = $this->route('employee');
+
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'nullable|email|unique:employees',
+            'email' => [
+                'required',
+                'email',
+                 Rule::unique('employees')->ignore($employee?->id)
+            ],
             'phone' => 'required|min:11|numeric',
             'company_id' => 'required',
         ];

@@ -53,7 +53,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input type="text" name="email" class="form-control @if($errors->has('email')) is-invalid @endif "
+                    <input type="text" name="email" class="form-control @if($errors->has('email')) is-invalid @endif"
                            placeholder="{{ $employee->email }}" value="{{ $employee->email }}">
 
                     <!-- Error -->
