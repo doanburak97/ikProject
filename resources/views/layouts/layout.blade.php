@@ -44,6 +44,7 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
+                    <li class="nav-header">TABLES</li>
                     <li class="nav-item">
                         <a href="\companies" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>

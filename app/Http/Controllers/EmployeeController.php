@@ -34,8 +34,7 @@ class EmployeeController extends Controller
     {
         $employees = $this->employeeRepository->index($request);
 
-        if (!$employees)
-        {
+        if (!$employees) {
             return redirect()->route('employees.create');
         }
 
@@ -50,7 +49,7 @@ class EmployeeController extends Controller
     public function create(): View|Factory|Application
     {
 
-        return view('employees.create',[
+        return view('employees.create', [
             'companies' => Company::all(),
         ]);
     }
@@ -129,22 +128,19 @@ class EmployeeController extends Controller
     public function search_employee(Request $request): Factory|View|Application
     {
         $employees = Employee::query()
-            ->when($request->input('first_name'),fn($query,$value)=>$query->where('first_name','LIKE', '%'.$value.'%'))
-            ->when($request->input('last_name'),fn($query,$value)=>$query->where('last_name','LIKE', '%'.$value.'%'))
-            ->when($request->input('email'),fn($query,$value)=>$query->where('email','LIKE', '%'.$value.'%'))
-            ->when($request->input('phone'),fn($query,$value)=>$query->where('phone','LIKE', '%'.$value.'%'))
+            ->when($request->input('first_name'), fn($query, $value) => $query->where('first_name', 'LIKE', '%' . $value . '%'))
+            ->when($request->input('last_name'), fn($query, $value) => $query->where('last_name', 'LIKE', '%' . $value . '%'))
+            ->when($request->input('email'), fn($query, $value) => $query->where('email', 'LIKE', '%' . $value . '%'))
+            ->when($request->input('phone'), fn($query, $value) => $query->where('phone', 'LIKE', '%' . $value . '%'))
             ->paginate(10);
 
-        return view('Employees.Index', compact('employees'));
+        return view('employees.Index', compact('employees'));
     }
 
-    public function employeeExportIntoExcel(): BinaryFileResponse
+    public function export(Request $request): BinaryFileResponse
     {
-        return Excel::download(new EmployeeExport, 'employee_list.xlsx');
-    }
+        $type = $request->input('type');
 
-    public function employeeExportIntoCSV(): BinaryFileResponse
-    {
-        return Excel::download(new EmployeeExport, 'employee_list.csv');
+        return Excel::download(new EmployeeExport, 'employee_list.' . $type);
     }
 }

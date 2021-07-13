@@ -31,8 +31,7 @@ class CompanyController extends Controller
     {
         $companies = $this->companyRepository->index($request);
 
-        if (!$companies)
-        {
+        if (!$companies) {
             return redirect()->route('companies.create');
         }
 
@@ -115,14 +114,11 @@ class CompanyController extends Controller
             ->with('success', 'Company deleted successfully');
     }
 
-    public function companyExportIntoExcel(): BinaryFileResponse
+    public function export(Request $request): BinaryFileResponse
     {
-        return Excel::download(new CompanyExport, 'company_list.xlsx');
-    }
+        $type = $request->input('type');
 
-    public function companyExportIntoCSV(): BinaryFileResponse
-    {
-        return Excel::download(new CompanyExport, 'company_list.csv');
+        return Excel::download(new CompanyExport, 'company_list.' . $type);
     }
 
 }
